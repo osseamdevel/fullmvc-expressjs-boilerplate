@@ -19,7 +19,7 @@ const path = require("node:path");
 const helmet = require("helmet");
 const lusca = require("lusca");
 
-const { checkCsrf, checkCsrfError, middlewareGlobal } = require("./src/middlewares/middleware");
+const { checkCsrf, csrfErrorHandler, middlewareGlobal } = require("./src/middlewares/middleware");
 
 app.use(helmet());
 app.use(express.urlencoded({ extended: true }));
@@ -52,6 +52,7 @@ app.use(lusca({
 }));
 
 app.use(middlewareGlobal);
+app.use(csrfErrorHandler);
 app.use(checkCsrf);
 app.use(routes);
 
